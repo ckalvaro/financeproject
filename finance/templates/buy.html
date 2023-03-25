@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buying Page
+{% endblock %}
+
+{% block main %}
+{% if symbol_to_buy %}
+<form action="/buy" method="post">
+    <div class="mb-3">
+        <h3> Buying {{ symbol_to_buy }} stocks</h3>
+        <input class="form-control mx-auto w-auto" id="symbol" name="symbol" value="{{ symbol_to_buy }}" type="hidden" required>
+    </div>
+    <div class="mb-3">
+        <input autofocus class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Shares" type="number" min="0" required>
+    </div>
+    <button class="btn btn-outline-success" type="submit">BUY</button>
+</form>
+{% else %}
+    <form action="/buy" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="Symbol" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Shares" type="number" min="0" required>
+        </div>
+        <button class="btn btn-outline-success" type="submit">BUY</button>
+    </form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block main %}
+<h2>Welcome to C$50 Finance!</h2>
+<table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Symbol</th>
+        <th scope="col">Name</th>
+        <th scope="col">Shares</th>
+        <th scope="col">Price</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <th scope="row"> {{ stock.symbol }}</th>
+            <td> {{ stock.name }} </td>
+            <td> {{ stock.qty }} </td>
+            <td> {{ stock.price}}</td>
+            <td> {{ (stock.price * stock.qty) | usd }}</td>
+            <td>
+                <div class="form-group">
+                <form action="/buy">
+                    <input name="buys" type="hidden" value="{{ stock.symbol }}">
+                    <button type="submit" class="btn btn-outline-success">BUY</button>
+                </form>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                <form action="/sell">
+                    <input name="sells"  type="hidden" value="{{ stock.symbol }}">
+                    <button type="submit" class="btn btn-outline-danger">SELL</button>
+                </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th scope="row">United States Dollar</th>
+            <td>CASH</td>
+            <td></td>
+            <td></td>
+            <td> {{ current_cash | usd }}</td>
+            <td colspan="2"><form action="/add_cash" method="get"><button type="submit" class="btn btn-outline-success">ADD CASH</button></form></td>
+
+        </tr>
+    </tbody>
+    <tfoot>
+        <td colspan="4"> <strong> TOTAL </strong></td>
+        <td> <strong>{{ total_value | usd }} </strong></td>
+        <td></td>
+        <td></td>
+    </tfoot>
+</table>
+{% endblock %}

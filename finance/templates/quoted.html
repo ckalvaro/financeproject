@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}
+    Stock Information
+{% endblock %}
+
+{% block main %}
+<h2> A share of {{stock.name }} costs {{ stock_price|usd }} </h2>
+<form action="/quote" method="GET">
+<button class="btn btn-secondary" type="submit">Look for another stock</button>
+</form>
+{% endblock %}
